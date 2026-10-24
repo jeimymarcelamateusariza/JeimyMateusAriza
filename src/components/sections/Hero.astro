@@ -1,0 +1,53 @@
+---
+import Header from '../layout/Header.astro';
+import type { HeroData } from '../../types/portfolio';
+
+interface Props {
+  data: HeroData;
+}
+
+const { data } = Astro.props;
+---
+
+<section
+  id="hero"
+  aria-label="Presentación principal"
+  class="relative w-full bg-black text-white rounded-b-[36px] sm:rounded-b-[48px] shadow-2xl overflow-hidden pb-16 sm:pb-24 pt-2"
+>
+  <!-- Top Navigation Header -->
+  <Header email={data.email} links={data.links} />
+
+  <!-- Main Hero Content -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 flex flex-col items-center text-center">
+    <!-- Avatar / Profile image placeholder -->
+    <div
+      class="w-44 h-32 sm:w-52 sm:h-36 bg-[#d1d5db] rounded-2xl sm:rounded-3xl shadow-md mb-8 flex items-center justify-center transition-transform hover:scale-[1.02]"
+      role="img"
+      aria-label="Espacio para fotografía de perfil de la desarrolladora"
+    >
+      <span class="sr-only">Foto de perfil</span>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-snug">
+      {data.roleLines.map((line) => (
+        <span class="block">{line}</span>
+      ))}
+    </h1>
+
+    <!-- Bio Description -->
+    <p class="mt-6 max-w-2xl text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed font-normal">
+      {data.bio}
+    </p>
+
+    <!-- Call to action button -->
+    <div class="mt-8">
+      <a
+        href={data.ctaHref}
+        class="inline-flex items-center justify-center bg-[#383d42] hover:bg-[#474d53] text-white text-xs sm:text-sm font-medium px-8 py-2.5 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:ring-offset-black active:scale-95"
+      >
+        {data.ctaText}
+      </a>
+    </div>
+  </div>
+</section>

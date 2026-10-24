@@ -1,0 +1,79 @@
+---
+import type { SocialLinks } from '../../types/portfolio';
+
+interface Props {
+  email: string;
+  links: SocialLinks;
+}
+
+const { email, links } = Astro.props;
+---
+
+<header class="w-full flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-6 pb-4 px-4 sm:px-8 max-w-6xl mx-auto">
+  <!-- Email pill with Copy and CV buttons -->
+  <div class="inline-flex flex-wrap items-center gap-2 bg-[#1c1c1c] border border-neutral-800 rounded-full px-3.5 py-1.5 shadow-sm text-xs text-neutral-200">
+    <span id="hero-email-text" class="select-all font-mono tracking-tight text-neutral-300">
+      {email}
+    </span>
+    <button
+      id="copy-email-btn"
+      type="button"
+      data-email={email}
+      aria-label="Copiar dirección de correo"
+      class="bg-[#4b5563] hover:bg-[#5b6677] active:scale-95 text-white font-medium text-[11px] px-2.5 py-0.5 rounded-full transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-neutral-400"
+    >
+      Copiar
+    </button>
+    <a
+      href={links.cv}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Ver o descargar Curriculum Vitae"
+      class="bg-[#4b5563] hover:bg-[#5b6677] active:scale-95 text-white font-medium text-[11px] px-2.5 py-0.5 rounded-full transition-all inline-flex items-center focus:outline-none focus:ring-2 focus:ring-neutral-400"
+    >
+      CV
+    </a>
+  </div>
+
+  <!-- Social links -->
+  <nav aria-label="Enlaces profesionales" class="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-white">
+    <a
+      href={links.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hover:text-neutral-300 transition-colors focus:outline-none focus:underline"
+    >
+      Linkedin
+    </a>
+    <span class="text-neutral-500" aria-hidden="true">/</span>
+    <a
+      href={links.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hover:text-neutral-300 transition-colors focus:outline-none focus:underline"
+    >
+      Github
+    </a>
+  </nav>
+</header>
+
+<script>
+  const copyBtn = document.getElementById('copy-email-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email') || '';
+      try {
+        await navigator.clipboard.writeText(email);
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = '¡Copiado!';
+        copyBtn.classList.add('bg-emerald-600');
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+          copyBtn.classList.remove('bg-emerald-600');
+        }, 2000);
+      } catch (err) {
+        console.error('Error al copiar el correo:', err);
+      }
+    });
+  }
+</script>

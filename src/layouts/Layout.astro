@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Jeimy Mateus | Desarrolladora Frontend',
+  description = 'Portafolio profesional de Jeimy Mateus, desarrolladora frontend especializada en HTML, CSS, Sass, Bootstrap y Tailwind CSS.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-[#f3f4f6] text-neutral-900 antialiased selection:bg-neutral-800 selection:text-white">
+    <slot />
+  </body>
+</html>
